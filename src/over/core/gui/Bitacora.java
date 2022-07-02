@@ -3,6 +3,7 @@ package over.core.gui;
 import over.config.Configurator;
 import over.core.controller.format.FontEditor;
 import over.core.controller.table.TaskTable;
+import over.core.model.Task;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,12 +39,12 @@ public class Bitacora extends JFrame {
      */
     public Bitacora() {
         initComponents();
-        new TaskTable(taskTable);
+        TaskTable.getInstance().initTable(taskTable);
         fontEditor = new FontEditor();
     }
 
     /**
-     * Method to initialize the components.
+     * Creates and initialize the <code>Bitacora</code> application's components.
      */
     private void initComponents() {
         inputPanel = new JPanel();
@@ -88,7 +89,7 @@ public class Bitacora extends JFrame {
     }
 
     /**
-     * Method to initialize the <code>InputPanel</code> components.
+     * Creates and initialize the <code>InputPanel</code> components.
      */
     public void createInputPanel() {
         inputPanel.setName("inputPanel");
@@ -122,7 +123,7 @@ public class Bitacora extends JFrame {
     }
 
     /**
-     * Method to initialize the <code>TaskPanel</code> components.
+     * Creates and initialize the <code>TaskPanel</code> components.
      */
     public void createTaskPanel() {
         taskPanel.setName("taskPanel");
@@ -146,7 +147,7 @@ public class Bitacora extends JFrame {
     }
 
     /**
-     * Method to initialize the <code>ConsolePanel</code> components.
+     * Creates and initialize the <code>ConsolePanel</code> components.
      */
     public void createConsolePanel() {
         consolePanel.setName("consolePanel");
@@ -168,7 +169,7 @@ public class Bitacora extends JFrame {
     }
 
     /**
-     * Method to initialize the <code>MenuBar</code> items.
+     * Creates and initialize the <code>JMenuBar</code> items.
      */
     public void createMenuBar() {
         menuBar.setName("menuBar");
@@ -217,26 +218,33 @@ public class Bitacora extends JFrame {
     }
 
     /**
-     *
-     * @param evt
+     * Adds a new user task to the <code>JTable</code>.
+     * @param evt the <code>JButton</code> click event.
      */
     private void btnAddTaskMouseClicked(MouseEvent evt) {
+        String taskName = txtTask.getText().trim();
 
+        TaskTable.getInstance().addTask(taskName);
+
+        txtTask.setText("");
+
+        addMessage(taskName);
     }
 
     /**
-     *
-     * @param path
+     * Adds a new message to the <code>Bitacora</code> application's messages console.
+     * @param taskName the task name to display in the console.
      */
-    public static void addMessage(String path) {
-        String message = Configurator.getConfigurator().getProperty("message04");
+    public static void addMessage(String taskName) {
+        String consoleMessage = Configurator.getConfigurator().getProperty("consoleMessage");
 
-        fontEditor.setSimple(txtConsole, message + " " + path + "\n");
+        fontEditor.setBold(txtConsole, consoleMessage + ": ");
+        fontEditor.setSimple(txtConsole, taskName + "\n");
     }
 
     /**
-     *
-     * @param args
+     * The <code>Bitacora</code>'s starting point.
+     * @param args the initial parameters.
      */
     public static void main(String... args) {
         try {
