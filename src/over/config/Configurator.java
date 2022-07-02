@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  * @author Overload Inc.
  * @version 1.0, 18 Jun 2022
  */
-public class Configurator {
+public final class Configurator {
 
     /**
      * The <code>properties</code> file name.
