@@ -1,6 +1,6 @@
-package over.gui;
+package over.core.gui;
 
-import over.controller.format.FontEditor;
+import over.core.controller.format.FontEditor;
 import over.config.Configurator;
 
 import javax.swing.*;

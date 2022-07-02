@@ -1,8 +1,8 @@
-package over.gui;
+package over.core.gui;
 
 import over.config.Configurator;
-import over.controller.format.FontEditor;
-import over.controller.table.TaskTable;
+import over.core.controller.format.FontEditor;
+import over.core.controller.table.TaskTable;
 
 import javax.swing.*;
 import java.awt.*;
