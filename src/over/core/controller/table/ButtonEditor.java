@@ -13,8 +13,8 @@ public class ButtonEditor extends DefaultCellEditor {
     private String label;
 
     /**
-     *
-     * @param checkBox
+     * Class constructor.
+     * @param checkBox the <code>JCheckBox</code> to display in the <code>JTable</code>.
      */
     public ButtonEditor(JCheckBox checkBox) {
         super(checkBox);
