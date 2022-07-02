@@ -1,4 +1,4 @@
-package over.controller.table;
+package over.core.controller.table;
 
 import over.config.Configurator;
 
