@@ -2,8 +2,8 @@ package over.core.gui;
 
 import over.config.Configurator;
 import over.core.controller.format.FontEditor;
+import over.core.controller.table.TableController;
 import over.core.controller.table.TaskTable;
-import over.core.model.Task;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +31,7 @@ public class Bitacora extends JFrame {
     private JTable taskTable;
     private JScrollPane scrollTask;
     private JScrollPane scrollConsole;
+    private TableController controller;
     private static JTextPane txtConsole;
     private static FontEditor fontEditor;
 
@@ -40,6 +41,7 @@ public class Bitacora extends JFrame {
     public Bitacora() {
         initComponents();
         TaskTable.getInstance().initTable(taskTable);
+        controller = new TableController();
         fontEditor = new FontEditor();
     }
 
@@ -65,16 +67,16 @@ public class Bitacora extends JFrame {
         scrollConsole = new JScrollPane();
         txtConsole = new JTextPane();
 
-        createInputPanel();
-        createTaskPanel();
-        createConsolePanel();
-
         setName("frmBitacora");
         setTitle(Configurator.getConfigurator().getProperty("applicationName"));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new Dimension(600, 600));
         setMinimumSize(new Dimension(600, 600));
         setPreferredSize(new Dimension(600, 600));
+
+        createInputPanel();
+        createTaskPanel();
+        createConsolePanel();
 
         getContentPane().add(inputPanel, BorderLayout.NORTH);
         getContentPane().add(taskPanel, BorderLayout.CENTER);
@@ -222,13 +224,9 @@ public class Bitacora extends JFrame {
      * @param evt the <code>JButton</code> click event.
      */
     private void btnAddTaskMouseClicked(MouseEvent evt) {
-        String taskName = txtTask.getText().trim();
-
-        TaskTable.getInstance().addTask(taskName);
+        controller.addTask(txtTask.getText().trim());
 
         txtTask.setText("");
-
-        addMessage(taskName);
     }
 
     /**
