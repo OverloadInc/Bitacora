@@ -1,7 +1,10 @@
 package over.core.controller.table;
 
+import over.config.Configurator;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * <code>ButtonEditor</code> class.
@@ -18,16 +21,39 @@ public class ButtonEditor extends DefaultCellEditor {
      */
     public ButtonEditor(JCheckBox checkBox) {
         super(checkBox);
-        button.addActionListener(event -> JOptionPane.showMessageDialog(null,"Do you want to modify this line?"));
+        button.addActionListener(event -> actionSelector(event));
     }
 
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        label = (value == null) ? "Modify" : value.toString();
+        switch (column) {
+            case 5: label = Configurator.getConfigurator().getProperty("playColumn"); break;
+            case 6: label = Configurator.getConfigurator().getProperty("stopColumn"); break;
+            case 7: label = Configurator.getConfigurator().getProperty("deleteColumn"); break;
+            default: label = value.toString();
+        }
+
         button.setText(label);
+
         return button;
     }
 
     public Object getCellEditorValue() {
-        return new String(label);
+        return label;
+    }
+
+    public void actionSelector(ActionEvent evt) {
+        TableController controller = new TableController();
+
+        String buttonSelected = ((JButton) evt.getSource()).getText();
+        String play = Configurator.getConfigurator().getProperty("playColumn");
+        String stop = Configurator.getConfigurator().getProperty("stopColumn");
+        String delete = Configurator.getConfigurator().getProperty("deleteColumn");
+
+        if (buttonSelected.equals(play))
+            controller.play();
+        else if (buttonSelected.equals(stop))
+            controller.stop();
+        else if (buttonSelected.equals(delete))
+            controller.deleteTask();
     }
 }
