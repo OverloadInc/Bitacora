@@ -18,10 +18,9 @@ public class Task {
     private LocalTime startTime;
     private LocalTime endTime;
     private LocalTime effectiveTime;
-
     private Date date;
-    private boolean firstTime;
-    private Status status;
+    private boolean firstTime = true;
+    private Status status = Status.PLAY;
 
     /**
      * Sets the id user task.
@@ -185,6 +184,39 @@ public class Task {
         }
 
         return taskList;
+    }
+
+    /**
+     * Gets a specific task stored in the Database.
+     * @param id the user task id.
+     * @return the <code>Task</code> object with the information requested.
+     */
+    public Task get(int id) {
+        Task task = new Task();
+
+        String query = "SELECT * FROM tasks WHERE id_task = " + id + ";";
+
+        try {
+            DBConnection dbConnection = DBConnection.getInstance();
+            dbConnection.connect();
+
+            ResultSet resultSet = dbConnection.executeQuery(query);
+
+            while(resultSet.next()) {
+                task.setId(resultSet.getInt("id_task"));
+                task.setName(resultSet.getString("name"));
+                task.setStartTime(resultSet.getTime("start_time").toLocalTime());
+                task.setEndTime(resultSet.getTime("end_time").toLocalTime());
+                task.setEffectiveTime(resultSet.getTime("effective_time").toLocalTime());
+                task.setDate(resultSet.getDate("register_date"));
+            }
+
+            dbConnection.disconnect();
+        }
+        catch (Exception e) {
+        }
+
+        return task;
     }
 
     /**
