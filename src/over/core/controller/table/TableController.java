@@ -67,7 +67,7 @@ public class TableController {
     }
 
     /**
-     * Deletes a selected user task from the <code>JTable</code>
+     * Deletes a selected user task from the <code>JTable</code>.
      */
     public void deleteTask() {
         int selectedRow = taskTable.getSelectedRow();
@@ -84,12 +84,18 @@ public class TableController {
             JOptionPane.showMessageDialog(null, "Select a valid task");
     }
 
+    /**
+     * Updates the selected user task's information from the <code>JTable</code>.
+     * @param task the user task to update.
+     */
     public void updateTask(Task task) {
         if (task != null)
             task.update();
     }
 
-    //TODO Implementation of effective time mechanism
+    /**
+     * Starts the timer to calculate the duration of a specific user task.
+     */
     public void play() {
         int selectedRow = taskTable.getSelectedRow();
         int rowCount = taskTable.getRowCount();
@@ -102,15 +108,14 @@ public class TableController {
                 task.setStartTime(LocalTime.now());
                 tableModel.setValueAt(task.getStartTime(), selectedRow, 2);
                 tableModel.setValueAt(task.getEffectiveTime(), selectedRow, 4);
+                System.out.println("Play: " + task.getStartTime());
                 task.setFirstTime(false);
 
             }
             else if (!task.isFirstTime() && task.getStatus() == Status.PAUSE) {
                 task.setStatus(Status.PLAY);
                 task.setFirstTime(false);
-                //System.out.println("Duration: " + Duration.between(start, end));
-                //System.out.println("Effective: " + task.getEffectiveTime());
-                task.setEffectiveTime(task.getEffectiveTime().plusMinutes(Duration.between(LocalTime.now(), task.getStartTime()).toMinutes()));
+                task.setEffectiveTime(task.getEffectiveTime().plusSeconds(Duration.between(task.getStartTime(), LocalTime.now()).getSeconds()));
                 tableModel.setValueAt(task.getEffectiveTime(), selectedRow, 4);
             }
             else if (!task.isFirstTime() && task.getStatus() == Status.PLAY) {
@@ -123,6 +128,9 @@ public class TableController {
             JOptionPane.showMessageDialog(null, "Select a valid task");
     }
 
+    /**
+     * Stops the timer to get the effective time of a specific user task.
+     */
     public void stop() {
         int selectedRow = taskTable.getSelectedRow();
         int rowCount = taskTable.getRowCount();
@@ -140,8 +148,8 @@ public class TableController {
                 task.setStatus(Status.PLAY);
                 task.setFirstTime(true);
                 task.setEndTime(LocalTime.now());
+                task.setEffectiveTime(task.getEffectiveTime().plusSeconds(Duration.between(task.getStartTime(), task.getEndTime()).getSeconds()));
                 tableModel.setValueAt(task.getEndTime(), selectedRow, 3);
-                task.setEffectiveTime(task.getEffectiveTime().plusMinutes(Duration.between(LocalTime.now(), task.getStartTime()).toMinutes()));
                 tableModel.setValueAt(task.getEffectiveTime(), selectedRow, 4);
             }
 
