@@ -25,7 +25,7 @@ public class About extends JFrame {
     private JTextPane txtCredits;
 
     /**
-     * Class constructor.
+     * Class constructor to initialize the graphical user interface components.
      */
     public About() {
         initComponents();
@@ -126,7 +126,8 @@ public class About extends JFrame {
             fontEditor.setBold(txtCredits, contact);
             fontEditor.setSimple(txtCredits, email01);
             fontEditor.setSimple(txtCredits, email02);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
         }
     }
 }
