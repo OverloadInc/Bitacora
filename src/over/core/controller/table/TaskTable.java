@@ -6,7 +6,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * <code>TableController</code> class.
+ * <code>TableController</code> class allows the user to create a <code>JTable</code>
+ * in order to display a set of tasks. In addition, this class is able to render the <code>JTable</code>
+ * cells to include <code>JButton</code> components with its listeners associated.
  * @author Overload Inc.
  * @version 1.0, 19 Jun 2022
  */
