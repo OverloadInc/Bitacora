@@ -7,7 +7,8 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 /**
- * <code>ButtonRenderer</code> class.
+ * <code>ButtonRenderer</code> class allows modifying the <code>JTable</code> component cells
+ * to incorporate <code>JButton</code> properties.
  * @author Overload Inc.
  * @version 1.0, 19 Jun 2022
  */
