@@ -13,7 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * <code>TableController</code> class.
+ * <code>TableController</code> class encapsulates the functionalities to manage and control
+ * the tasks information entered by the user through the graphic interface.
  * @author Overload Inc.
  * @version 1.0, 19 Jun 2022
  */
