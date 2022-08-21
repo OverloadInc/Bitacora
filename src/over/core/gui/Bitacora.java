@@ -10,7 +10,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * <code>Bitacora</code> class.
+ * <code>Bitacora</code> class encapsulates the functionalities to register and control the effective time
+ * of a set of user tasks.
  * @author Overload Inc.
  * @version 1.0, 19 Jun 2022
  */
@@ -36,7 +37,7 @@ public class Bitacora extends JFrame {
     private static FontEditor fontEditor;
 
     /**
-     * Class constructor.
+     * Class constructor to initialize the graphical user interface.
      */
     public Bitacora() {
         initComponents();
