@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
- * <code>Task</code> class.
+ * <code>Task</code> class encapsulates the functionalities to store and control the user tasks information.
  * @author Overload Inc.
  * @version 1.0, 01 Jul 2022
  */
